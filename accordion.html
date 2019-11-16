@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>做人要对自己狠一点</title>
+  <style>
+    ul {
+      list-style: none;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+
+    div {
+      width: 1150px;
+      height: 400px;
+      margin: 50px auto;
+      border: 1px solid red;
+      overflow: hidden;
+    }
+
+    div li {
+      width: 240px;
+      height: 400px;
+      float: left;
+      transition: width 300ms;
+    }
+
+    div ul {
+      width: 1300px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <ul>
+      <!-- <li></li>
+      <li></li>
+      <li></li>
+      <li></li> -->
+    </ul>
+  </div>
+</body>
+<script>
+    /* ============ 动态生成图片 */
+    let data = ['./images/1.jpg','./images/2.jpg','./images/3.jpg','./images/4.jpg','./images/5.jpg'];
+    let box = document.querySelector('#box ul');
+    data.forEach(function(item, index) {
+        box.innerHTML += `<li>
+          <a href="#">
+              <img src=${item} alt="">
+          </a>
+      </li>`
+    })
+    /* =============== 添加移入移除事件 */
+    let li = document.querySelectorAll('#box li');
+    let img = document.querySelectorAll('img');
+    li.forEach(function(item, index) {
+        item.style.width = 1150 / li.length + 'px';
+        item.onmouseover = function(e) {
+            li.forEach(function(item) {
+                item.style.width = (1150 - 600) / (li.length - 1) + 'px';
+            })  
+            this.style.width = 600 + 'px';
+            if (e.target.nodeName == 'IMG') {
+                e.target.style.width = 100 + '%';
+                e.target.style.height = 100 + '%';
+            }
+        }
+        item.onmouseout = function() {
+            li.forEach(function(item) {
+                item.style.width = 1150 / li.length + 'px';
+            })
+            img.forEach(function(e) {
+                e.style.width = '';
+                e.style.height = '';
+            })
+        }
+    })
+</script>
+</html>
